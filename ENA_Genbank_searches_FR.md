@@ -29,27 +29,17 @@ La négation s’écrit seulement **NOT** en préfixe chez GenBank (e.g "Canis l
 Avec ENA, on peut aussi utiliser l’opérateur “!=” pour dire “différent de”.
 
 
-## Tableau décrivant la syntaxe des requêtes
+## Syntaxe des requêtes dans ENA et dans GenBank
 
-On décrit dans le tableau ci-dessous différentes requêtes, avec sur chaque ligne des requêtes ENA et GenBank sémantiquement identiques.
+On décrit dans ce qui suit la syntaxe des requêtes GenBank et ENA, dans plusieurs sections organisées selon la nature du filtrage effectué dans la base de données. Dans les tableaux qui suivent, chaque ligne contient des requêtes ENA et GenBank sémantiquement identiques.
 
+### Filtrage sur la date de publication des séquences.
 
-| nature du filtre                                               | syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification                                             | notes                                             |
-| -------------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------- | --------------------------------------------------------- | ------------------------------------------------- |
-| date de première publication dans la base de données           | `first_public <= 2000-12-31 AND first_public >= 1997-01-01` | `1997:2000[PDAT]`             | séquences publiées entre 1997 et 2000                     | ENA exige des dates précises au format AAAA-MM-JJ |
-| date (précise) de première publication dans la base de données | `first_public <= 2021-04-01 AND first_public >= 2021-04-27` | `2021/04/01:2021/04/27[PDAT]` | séquences publiées entre le 1er avril et le 27 avril 2021 |                                                   |
-
-Les tables trop longues ne passent pas, on va essayer autrement:
-
-| syntaxe ENA (Advanced Search)                               | syntaxe GenBank               |
-| ----------------------------------------------------------- | ----------------------------- |
-| `first_public <= 2000-12-31 AND first_public >= 1997-01-01` | `1997:2000[PDAT]`             |
-| `first_public <= 2021-04-01 AND first_public >= 2021-04-27` | `2021/04/01:2021/04/27[PDAT]` |
+Il est à noter qu'ENA n'accepte que des dates exactes, au format AAAA-MM-JJ. GenBank, en revanche, accepte des dates partiellement spécifiées, en n'indiquant que l'année. Si vous utilisez des dates exactes avec GenBank, notez que la syntaxe est AAAA/MM/JJ (avec des barres obliques et non des tirets comme avec ENA.
 
 
-Une table plus simple:
+| syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
+| ----------------------------------------------------------- | ----------------------------- | ------------- |
+| `first_public <= 2000-12-31 AND first_public >= 1997-01-01` | `1997:2000[PDAT]`             |séquences publiées entre 1997 et 2000 |
+| `first_public <= 2021-04-01 AND first_public >= 2021-04-27` | `2021/04/01:2021/04/27[PDAT]` |séquences publiées entre le 1er et le 27 avril 2021 | 
 
-| aararar | fzrtzetzet | qfgdg |
-| ------- | ---------- | ----- |
-| je | suis | JB |
-| et | ça, | ça va ? |
