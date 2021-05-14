@@ -41,7 +41,7 @@ Il est à noter qu'ENA n'accepte que des dates exactes, au format AAAA-MM-JJ. Ge
 | syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
 | `first_public <= 2000-12-31 AND first_public >= 1997-01-01` | `1997:2000[PDAT]`             | séquences publiées entre 1997 et 2000 |
-| `first_public <= 2021-04-01 AND first_public >= 2021-05-07` | `2021/04/01:2021/05/07[PDAT]` | séquences publiées entre le 1^er^ avril et le 7 mai 2021 | 
+| `first_public <= 2021-04-01 AND first_public >= 2021-05-07` | `2021/04/01:2021/05/07[PDAT]` | séquences publiées entre le 1<sup>er</sup> avril et le 7 mai 2021 | 
 
 ### Filtrage sur la date de dernière modification des séquences
 
@@ -50,5 +50,5 @@ Il arrive que des séquences publiées soient modifiées par la suite, lorsque p
 
 | syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `last_updated >= 2021-04-01 AND last_updated <= 2021-04-27` | `2021/04/01:2021/04/27[MDAT]` | séquences dont l’enregistrement a été modifié pour la dernière fois entre le 1^er^ et le 27 avril 2021 |
+| `last_updated >= 2021-04-01 AND last_updated <= 2021-04-27` | `2021/04/01:2021/04/27[MDAT]` | séquences dont l’enregistrement a été modifié pour la dernière fois entre le 1<sup>er</sup> et le 27 avril 2021 |
 
