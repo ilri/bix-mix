@@ -34,9 +34,9 @@ Avec ENA, on peut aussi utiliser l’opérateur “!=” pour dire “différent
 On décrit dans le tableau ci-dessous différentes requêtes, avec sur chaque ligne des requêtes ENA et GenBank sémantiquement identiques.
 
 
-| nature du filtre | syntaxe ENA (Advanced Search) | syntaxe GenBank | signification | notes |
-| ---------------- | ----------------------------- | --------------- | ------------- | ----- |
-| date de première publication dans la base de données | `first_public <= 2000-12-31 AND first_public >= 1997-01-01` | `1997:2000[PDAT]` | séquences publiées entre 1997 et 2000 | ENA exige des dates précises au format AAAA-MM-JJ |
-| date (précise) de première publication dans la base de données | `first_public <= 2021-04-01 AND first_public >= 2021-04-27` | `2021/04/01:2021/04/27[PDAT]` | séquences publiées entre le 1er avril et le 27 avril 2021 |  |
+| nature du filtre                                               | syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification                                             | notes                                             |
+| -------------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------- | --------------------------------------------------------- | ------------------------------------------------- |
+| date de première publication dans la base de données           | `first_public <= 2000-12-31 AND first_public >= 1997-01-01` | `1997:2000[PDAT]`             | séquences publiées entre 1997 et 2000                     | ENA exige des dates précises au format AAAA-MM-JJ |
+| date (précise) de première publication dans la base de données | `first_public <= 2021-04-01 AND first_public >= 2021-04-27` | `2021/04/01:2021/04/27[PDAT]` | séquences publiées entre le 1er avril et le 27 avril 2021 |                                                   |
 
 
