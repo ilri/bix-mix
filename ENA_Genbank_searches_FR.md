@@ -33,13 +33,22 @@ Avec ENA, on peut aussi utiliser l’opérateur “!=” pour dire “différent
 
 On décrit dans ce qui suit la syntaxe des requêtes GenBank et ENA, dans plusieurs sections organisées selon la nature du filtrage effectué dans la base de données. Dans les tableaux qui suivent, chaque ligne contient des requêtes ENA et GenBank sémantiquement identiques.
 
-### Filtrage sur la date de publication des séquences.
+### Filtrage sur la date de première publication des séquences
 
 Il est à noter qu'ENA n'accepte que des dates exactes, au format AAAA-MM-JJ. GenBank, en revanche, accepte des dates partiellement spécifiées, en n'indiquant que l'année. Si vous utilisez des dates exactes avec GenBank, notez que la syntaxe est AAAA/MM/JJ (avec des barres obliques et non des tirets comme avec ENA.
 
 
 | syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `first_public <= 2000-12-31 AND first_public >= 1997-01-01` | `1997:2000[PDAT]`             |séquences publiées entre 1997 et 2000 |
-| `first_public <= 2021-04-01 AND first_public >= 2021-04-27` | `2021/04/01:2021/04/27[PDAT]` |séquences publiées entre le 1er et le 27 avril 2021 | 
+| `first_public <= 2000-12-31 AND first_public >= 1997-01-01` | `1997:2000[PDAT]`             | séquences publiées entre 1997 et 2000 |
+| `first_public <= 2021-04-01 AND first_public >= 2021-05-07` | `2021/04/01:2021/05/07[PDAT]` | séquences publiées entre le 1^er^ avril et le 7 mai 2021 | 
+
+### Filtrage sur la date de dernière modification des séquences
+
+Il arrive que des séquences publiées soient modifiées par la suite, lorsque par exemple l'équipe qui les a publiées s'est rendu compte d'une erreur. Dans ce cas, le numéro d'accession en principal ne change pas, mais le numéro de version se trouve incrémenté. Par exemple, on passe de l'accession FR682468.1 à l'accession FR682468.2. On peut vouloir chercher des séquences en fonction de leur date de dernière modification.
+
+
+| syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
+| ----------------------------------------------------------- | ----------------------------- | ------------- |
+| `last_updated >= 2021-04-01 AND last_updated <= 2021-04-27` | `2021/04/01:2021/04/27[MDAT]` | séquences dont l’enregistrement a été modifié pour la dernière fois entre le 1^er^ et le 27 avril 2021 |
 
