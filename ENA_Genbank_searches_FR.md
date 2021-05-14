@@ -31,6 +31,8 @@ Avec ENA, on peut aussi utiliser l’opérateur “!=” pour dire “différent
 
 ## Tableau décrivant la syntaxe des requêtes
 
+On décrit dans le tableau ci-dessous différentes requêtes, avec sur chaque ligne des requêtes ENA et GenBank sémantiquement identiques.
+
 
 | nature du filtre | syntaxe ENA (Advanced Search) | syntaxe GenBank | signification | notes |
 | ---------------- | ----------------------------- | --------------- | ------------- | ----- |
