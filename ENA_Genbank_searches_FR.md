@@ -40,3 +40,9 @@ On décrit dans le tableau ci-dessous différentes requêtes, avec sur chaque li
 | date (précise) de première publication dans la base de données | `first_public <= 2021-04-01 AND first_public >= 2021-04-27` | `2021/04/01:2021/04/27[PDAT]` | séquences publiées entre le 1er avril et le 27 avril 2021 |                                                   |
 
 
+Une table plus simple:
+
+| aararar | fzrtzetzet | qfgdg |
+| ------- | ---------- | ----- |
+| je | suis | JB |
+| et | ça, | ça va ? |
