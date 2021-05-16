@@ -45,10 +45,57 @@ Il est à noter qu'ENA n'accepte que des dates exactes, au format AAAA-MM-JJ. Ge
 
 ### Filtrage sur la date de dernière modification des séquences
 
-Il arrive que des séquences publiées soient modifiées par la suite, lorsque par exemple l'équipe qui les a publiées s'est rendu compte d'une erreur. Dans ce cas, le numéro d'accession en principal ne change pas, mais le numéro de version se trouve incrémenté. Par exemple, on passe de l'accession FR682468.1 à l'accession FR682468.2. On peut vouloir chercher des séquences en fonction de leur date de dernière modification.
+Il arrive que des séquences publiées soient modifiées par la suite, lorsque par exemple l'équipe qui les a publiées s'est rendu compte d'une erreur. Dans ce cas, le numéro d'accession en principal ne change pas, mais le numéro de version se trouve incrémenté. Par exemple, on passe de l'accession FR682468.1 à l'accession FR682468.2. On peut vouloir chercher des séquences en fonction de leur date de dernière modification :
 
 
 | syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
 | `last_updated >= 2021-04-01 AND last_updated <= 2021-04-27` | `2021/04/01:2021/04/27[MDAT]` | séquences dont l’enregistrement a été modifié pour la dernière fois entre le 1<sup>er</sup> et le 27 avril 2021 |
+
+
+### Longueur des séquences
+
+On peut vouloir ne retenir que des séquences plus longues (ou plus courtes) qu'une certaine longueur. Les longueurs de séquences sont toujours exprimées en nombre de nucléotides (en ce qui concerne les séquences nucléotidiques, bien sûr, qui sont les seules dont nous parlons ici. Pour les séquences protéiques, la longueur serait exprimée en nombre d'acides aminés). On peut aussi donner une plage de tailles de séquence.
+
+D'ailleurs, les requêtes GenBank doivent toujours être écrites avec une plage de tailles de séquence : si l'on ne donne qu'une valeur, alors les résultats de la requête ne produiront que des séquences de longueur exactement égale à ladite valeur. Ainsi, pour simuler avec GenBank une recherche avec seulement une borne inférieure, on droit donner une plage de valeurs avec une borne supérieure arbitrairement élevée, comme ci-dessous.
+
+
+
+| syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
+| ----------------------------------------------------------- | ----------------------------- | ------------- |
+| `base_count > 500` | `501:10000000[SLEN]` | séquences de longueur au moins 501 nucléotides |
+| `base_count >= 5000 AND base_count <= 10000` | `5000:10000[SLEN]` | séquences de longueur comprise entre 5kb et 10kb |
+| `base_count <= 5000` | `0:5000[SLEN]` | séquences de longueur inférieure ou égale à 5kb |
+
+
+### Division taxonomique
+
+Les bases de données INSDC contiennent un certain nombre de grandes divisions taxonomiques. À chacune de ces divisions correspond un code sur trois caractères, et chaque séquence publiée apparaît dans une et une seule division. Cette dernière apparaît sur la première ligne (ID) d'un fichier au format EMBL, ou sur la premirère ligne (LOCUS) d'une fichier au format GenBank. Par exemple, le code "VRL" dans le [fichier GenBank](https://www.ncbi.nlm.nih.gov/nuccore/MK940252) ou dans le [fichier EMBL](https://www.ebi.ac.uk/ena/browser/api/embl/MK940252.1?lineLimit=1000) de la séquence d'accession MK940252 nous indique qu'il s'agit d'une séquence de virus. 
+
+Les divisions taxonomiques des bases INSDC doivent beaucoup à l'historique de la formation de GenBank, et ne sont pas destinées à inclure un nombre égal de taxa contemporains. Elles sont comme suit :
+
+| code à trois lettres | division taxonomique |
+| -------- | ------- |
+| PRI | tous les primates, y compris *Homo sapiens* |
+| ROD | rongeurs ("rodents") : souris, rats, etc |
+| MAM | tous les autres mammifères |
+| VRT | tous les autres vertébrés (non mammifères) |
+| INV | invertébrés |
+| PLN | plantes et champignons (fungi) |
+| BCT | bactéries |
+| PHG | bactériophages |
+| VRL | tous les autres virus ("virological") |
+| ENV | séquences environnementales (métagénomique) |
+| SYN | séquences synthétiques et chimériques |
+| PAT | séquences brevetées ("brevet" = "patent" en anglais) |
+| UNA | séquences non annotées (rare) |
+
+
+La syntaxe pour effectuer une recherche en fonction de la division taxonomique des séquences est un peu plus scabreuse avec GenBank qu'avec ENA :
+
+
+| syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
+| ----------------------------------------------------------- | ----------------------------- | ------------- |
+| `tax_division="VRL"` | `gbdiv_vrl[PROP]` | séquences virales hors bactériophages |
+| `tax_division="PLN"` | `gbdiv_pln[PROP]` | séquences de plantes et de champignons |
 
