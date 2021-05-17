@@ -183,6 +183,6 @@ Voilà, nous avons fait un bref tour d'horizon des requêtes dans ENA et dans Ge
 
 | syntaxe ENA (Advanced Search)                               | syntaxe GenBank               | signification |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `tax_name("Sus scrofa") AND organelle="mitochondrion" AND base_count > 10000 AND description="*complete*"` | séquences mitochondriales de porc d'au moins 10kb et contenant le mot "complete" dans leur description |
+| `tax_name("Sus scrofa") AND organelle="mitochondrion" AND base_count > 10000 AND description="*complete*"` |  | séquences mitochondriales de porc d'au moins 10kb et contenant le mot "complete" dans leur description |
 
 
