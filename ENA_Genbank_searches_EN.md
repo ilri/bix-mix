@@ -93,13 +93,13 @@ Les divisions taxonomiques des bases INSDC doivent beaucoup à l'historique de l
 | UNA | unannotates sequences (rare) |
 
 
-La syntaxe pour effectuer une recherche en fonction de la division taxonomique des séquences est un peu plus scabreuse avec GenBank qu'avec ENA :
+The syntax to perform a search based on the taxonomic division of the sequences is a bit more cumbersome with GenBanks than with ENA:
 
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `tax_division="VRL"` | `gbdiv_vrl[PROP]` | séquences virales hors bactériophages |
-| `tax_division="PLN"` | `gbdiv_pln[PROP]` | séquences de plantes et de champignons |
+| `tax_division="VRL"` | `gbdiv_vrl[PROP]` | viral sequences expect bacteriophages |
+| `tax_division="PLN"` | `gbdiv_pln[PROP]` | plant and fungi sequences |
 
 
 ### Recherches par taxon/taxa
@@ -108,7 +108,7 @@ La manière la plus intuitive de faire des recherches par taxon consiste à indi
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `tax_name("Canis lupus")` | `"Canis lupus"[ORGN]` | séquences pour lesquelles un nom de taxon source contient “Canis lupus” |
+| `tax_name("Canis lupus")` | `"Canis lupus"[ORGN]` | sequences for which a source taxon name contains “Canis lupus” |
 
 Attention ! La requête ENA `tax_name("Canis lupus")` est strictement équivalente à `tax_eq(9612)` (voir ci-dessous) : le nom fourni doit correspondre exactement à celui d’un taxon, alors que Genbank fait du *pattern matching*. C'est-à-dire que “Canis lupus lycaon” est inclus dans les résultats de la requête NCBI, pas dans ceux de la requête ENA telle qu’écrite ici.
 
@@ -117,7 +117,7 @@ D'autre part, dans le cas où il y a plusieurs organismes sources (par exemple d
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| *?* | `"Canis lupus"[PORGN]` | séquences pour lesquelles le nom de taxon source primaire contient “Canis lupus” |
+| *?* | `"Canis lupus"[PORGN]` | sequences for which the primary taxon name contains "Canis lupus" |
 
 
 Tout taxon, quelle que soit sa position dans l'arbre du Vivant, possède un code numérique l'identifiant de manière non équivoque. On peut obtenir un tel code via une recherche dans [NCBI Taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy). Une fois le code connu, on peut demander les séquences correspondant exactement à notre taxon.
