@@ -58,7 +58,7 @@ Sometimes, sequences are modified after their initial publication, for instance 
 
 Sometimes, one wants to get sequences whose length is above a certain value, or below a given threshold. It is possible to specify such a request through a search. For nucleotide sequences, sequence lengths are always expressed as a number of base pairs or nucleotides. For proteic sequences, the length would be in number of amino acids, of course. We can specify a ceiling or a threshold value, or even a range of acceptable lengths.
 
-On this note, queries to GenBank must always be written with a range of sequence lengths: if one gives only one value, then only sequences whose length is exactly equal to that value will be returned. Therefore, in order to simulate with GenBank a search with only a lower bound, one must give a range whose upper bound is arbitrarily high, as is the case below.
+On this note, queries to GenBank must always be written with a range of sequence lengths: if one gives only one value, then only sequences whose length is exactly equal to that value will be returned. Therefore, in order to simulate with GenBank a search with only a lower bound, one must give a range whose upper bound is arbitrarily high, as in the example below.
 
 
 
@@ -70,13 +70,15 @@ On this note, queries to GenBank must always be written with a range of sequence
 | `base_count=537` | `537[SLEN]` | sequences of length exactly equal to 537 nucleotides |
 
 
-### Division taxonomique
+### Taxonomic divisions
 
-Les bases de données INSDC contiennent un certain nombre de grandes divisions taxonomiques. À chacune de ces divisions correspond un code sur trois caractères, et chaque séquence publiée apparaît dans une et une seule division. Cette dernière apparaît sur la première ligne (ID) d'un fichier au format EMBL, ou sur la premirère ligne (LOCUS) d'une fichier au format GenBank. Par exemple, le code "VRL" dans le [fichier EMBL](https://www.ebi.ac.uk/ena/browser/api/embl/MK940252.1?lineLimit=1000) ou dans le [fichier GenBank](https://www.ncbi.nlm.nih.gov/nuccore/MK940252) de la séquence d'accession MK940252 nous indique qu'il s'agit d'une séquence de virus. 
+Sequence data within the INSCDC databases are organised into a number of large taxonomic divisions. To each of these divisions corresponds a three-letter code, and each published sequence appears in a single division. This information features on the first line ("ID" tag) of an EMBL file, or on the first line ("LOCUS" tag) of a file in the GenBank format. For instance, the "VRL" code in the [EMBL file](https://www.ebi.ac.uk/ena/browser/api/embl/MK940252.1?lineLimit=1000) or in the [GenBank file](https://www.ncbi.nlm.nih.gov/nuccore/MK940252) for the sequence with accession MK940252 indicates that sequence is from a non-bacteriophage virus.
 
-Les divisions taxonomiques des bases INSDC doivent beaucoup à l'historique de la formation de GenBank, et ne sont pas destinées à inclure un nombre égal de taxa contemporains. Elles sont comme suit :
 
-| code à trois lettres | division taxonomique |
+The taxonomic divisions in the INSDC databases owe a lot to the historical conditions of the development of the GenBank database, and are not meant to host equal number of the extant taxa. For instant, human (within the "PRI" division) and mouse species (within the "ROD" division) used to account for a large number of published sequences, and therefore they almost have dedicated divisions. The 13 INSDC taxonomic divisions are as follows:
+
+
+| three-letter code | taxonomic division |
 | -------- | ------- |
 | PRI | all primate species, including *Homo sapiens* |
 | ROD | rodents: mice, rats, etc |
@@ -98,21 +100,25 @@ The syntax to perform a search based on the taxonomic division of the sequences 
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `tax_division="VRL"` | `gbdiv_vrl[PROP]` | viral sequences expect bacteriophages |
+| `tax_division="VRL"` | `gbdiv_vrl[PROP]` | viral sequences except bacteriophages |
 | `tax_division="PLN"` | `gbdiv_pln[PROP]` | plant and fungi sequences |
 
 
-### Recherches par taxon/taxa
+### Looking for one taxon or several taxa
 
-La manière la plus intuitive de faire des recherches par taxon consiste à indiquer le nom scientifique latin (dit "binomial") du taxon. Par exemple, le chien domestique et le loup sont regroupés au sein de l'espèce *Canis lupus*. Dans les requêtes GenBank, le mot-clef `ORGN` vient du mot "organism" ("organisme" en français) :
+The most intuitive way to search sequences based on the taxon they should come from, consists in indicating the binomial scientific name of that taxon. For instance, the domestic dog and the wolf pertain to one species called *Canis lupus*, and the maize or corn is called *Zea mays*.
+
+Note that in the GenBank queries, the keyword `ORGN` stands for "organism".
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `tax_name("Canis lupus")` | `"Canis lupus"[ORGN]` | sequences for which a source taxon name contains “Canis lupus” |
+| `tax_name("Canis lupus")` | `"Canis lupus"[ORGN]` | sequences for which a source taxon name contains the words “Canis lupus” |
 
-Attention ! La requête ENA `tax_name("Canis lupus")` est strictement équivalente à `tax_eq(9612)` (voir ci-dessous) : le nom fourni doit correspondre exactement à celui d’un taxon, alors que Genbank fait du *pattern matching*. C'est-à-dire que “Canis lupus lycaon” est inclus dans les résultats de la requête NCBI, pas dans ceux de la requête ENA telle qu’écrite ici.
+Warning! The ENA query `tax_name("Canis lupus")` is strictly identical to `tax_eq(9612)` (see below): the name indicated between quotes must correspond exactly to a taxon name, while GenBank does some *partial pattern matching*. This means that the sequences belonging to *Canis lupus lycaon* will be included in the results of the above search with GenBank, but not in the results of the search through ENA as written above.
 
-D'autre part, dans le cas où il y a plusieurs organismes sources (par exemple dans le cas d'une séquence ADN de synthèse), le mot-clef GenBank `PORGN` désigne l'"organisme" source cité en premier lieu dans le fichier GenBank (par exemple "synthetic construct"), alors que `ORGN` désigne le ou l'un des "donneur(s)" d'ADN. Dans tous les autres cas, `PORGN` est strictement identique à `ORGN`. Un exemple d'une telle séquence synthétique, obtenue de GenBank par la recherche `"Homo sapiens"[ORGN] NOT "Homo sapiens"[PORGN]`, est la [séquence d'accession MG272208](https://www.ncbi.nlm.nih.gov/nuccore/MG272208.1).
+
+Besides, in the case where there are several source organisms (for instance in the case of some synthetic DNA), the GenBank keyword `PORGN` designates the "source organism" first mentioned in the GenBank file (that can be for instance "synthetic construct"), while `ORGN` designates any of the taxa that are "DNA contributors" to a sequence. In all other cases, `PORGN`is strictly equivalent to `ORGN`. An example of such a synthetic sequence, obtained through the GenBank search `"Homo sapiens"[ORGN] NOT "Homo sapiens"[PORGN]`, is the [sequence with accession MG272208](https://www.ncbi.nlm.nih.gov/nuccore/MG272208.1).
+
 
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
@@ -120,71 +126,71 @@ D'autre part, dans le cas où il y a plusieurs organismes sources (par exemple d
 | *?* | `"Canis lupus"[PORGN]` | sequences for which the primary taxon name contains "Canis lupus" |
 
 
-Tout taxon, quelle que soit sa position dans l'arbre du Vivant, possède un code numérique l'identifiant de manière non équivoque. On peut obtenir un tel code via une recherche dans [NCBI Taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy). Une fois le code connu, on peut demander les séquences correspondant exactement à notre taxon.
+Every single taxon that is present in the Tree of Life, whatever its position may be, possesses a unique numeric code (called "taxid") identifying it unambiguously. Such a numeric code can be found via a search through the [NCBI Taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy). Once the code is known, one can ask for sequences originating in that specific taxon.
 
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `tax_eq(1773)` | *?* | séquences issues de *Mycobacterium tuberculosis*, espèce dont [le taxid est 1773](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1773) |
+| `tax_eq(1773)` | *?* | sequences from *Mycobacterium tuberculosis*, a species whose [taxid is 1773](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1773) |
 
-
-Attention ! Les requêtes formées à l'aide du prédicat `tax_eq()` ne renvoient pas les séquences taxonomiquement “en dessous” du taxon donné (ci-dessus *Mycobacterium tuberculosis*, dont l'ID taxonomique est [1773](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1773)). Par exemple la requête ci-dessus ne produira pas les séquences de “*Mycobacterium tuberculosis* variant bovis”. Voir ci-dessous pour une autre requête renvoyant toutes les séquences correspondant à tout un clade phylogénétique.
-
-
-| ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
-| ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `tax_tree(1773)` | `zzz[orgn:__txid1773]` | séquences issues de *Mycobacterium tuberculosis* et de tout le clade dont *M. tb* est la racine |
-
-Notez bien que dans la requête Genbank, ce qu’on écrit à gauche du crochet n’a pas d’importance, mais il faut qu’il y ait quelque chose.
-
-### Recherche avec mots-clefs dans la description de la séquence
-
-Tous les enregistrements INSDC contiennnent un champ descriptif en texte libre. C'est le champ apparaissant dans un fichier EMBL à la balise "DE", ou sur la ligne "DEFINITION" d'un fichier au format GenBank, aussi appelé parfois le champ de "titre" d'un enregistrement. On peut rechercher un mot-dlef dans ce champ à l'aide des requêtes ci-dessous.
+Warning! The searches formed using the `tax_eq()` predicate do not yield the sequences placed in the taxonomy *below* the stated taxon (above: *Mycobacterium tuberculosis*, with taxonomic ID [1773](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1773)). For instance, the above ENA query **will not** output the sequences from “*Mycobacterium tuberculosis* variant bovis”. Please see below for another query outputting all the sequences corresponding to a given phylogenetic clade.
 
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `description="*RPOB*"` | `RPOB[TITL]` | séquences avec “RPOB” (recherche insensible à la casse des caractères) apparaissant n’importe où dans le champ de description (“titre”) |
+| `tax_tree(1773)` | `zzz[orgn:__txid1773]` | sequences from *Mycobacterium tuberculosis* and all the clade whose root taxon is *M. tb* |
+
+Please note that in the GenBank query above, the token that appears just on the left of the left square bracket is meaningless. But there needs to be something there, and writing only `[orgn:__txid1773]` will not work. Please also note there are two consecutive underscore characters (`_`) in this query.
+
+### Searching through sequence descriptions using keyowrds
+
+All INSDC sequence records contain a free text descriptive field. Appearing under the "DE" tag in a file in EMBL format, or on the line with the "DESCRIPTION" tag in a GenBank file, this is sometimes referred to as the "title" of the record. Searches based on words found within that field are performed as below.
+
+| ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
+| ----------------------------------------------------------- | ----------------------------- | ------------- |
+| `description="*RPOB*"` | `RPOB[TITL]` | records containing “RPOB” (case-insensitive) anywhere in the description (“title” of the record) |
 
 
-### Recherche en fonction du compartiment cellulaire où se trouve l'ADN
+### Searching based on the cellular compartment where the DNA was isolated
 
-Chez les eukaryotes, la plupart du matériel génétique se trouve dans le noyau, mais il y a aussi selon le cas de l'ADN dans les mitochondries, dans les plasmides, etc. On peut demander à voir uniquement les séquences correspondant à un compartiment cellulaire bien précis :
+In all eukaryotes, most of the genomic material is found in the kernel of the cells, but in some instances there is also DNA in the mitochondria, in the chloroplasts, in plasmids, etc. It is possible to filter the database records and get only the sequences belonging to a specific cellular compartment:
 
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `organelle="mitochondrion"` | `gene_in_mitochondrion[PROP]` | séquences d'ADN mitochondrial et non nucléaire |
-| `organelle != "mitochondrion" AND mol_type="genomic DNA"` | `gene_in_genomic[PROP]` | séquences d'ADN du noyau |
+| `organelle="mitochondrion"` | `gene_in_mitochondrion[PROP]` | mitochondrial DNA sequences |
+| `organelle != "mitochondrion" AND mol_type="genomic DNA"` | `gene_in_genomic[PROP]` | nuclear DNA sequences |
 
 
-### Filtrage par type de base de données
+### Filtering by type of database or on the origin database
 
-On peut vouloir exclure les données RefSeq, déjà présentes ailleurs dans GenBank mais constituant un sous-ensemble très sélectif de séquences de référence, ou bien demander les séquences qui ont été initialement publiées ou bien dans GenBank, ou bien dans ENA, ou bien dans DDBJ :
+When searching through GenBank, one can wish to exclude the [RefSeq sequences](https://www.ncbi.nlm.nih.gov/refseq/about/), which are already present as "base" records elsewhere in GenBank. The RefSeq set is a very selective subset of reference sequences that is maintained by NCBI/GenBank.
+
+It is also possible to ask for sequences that were initially uploaded to GenBank, or to ENA, or to DDBJ, before being synchronized with all these INSDC databases.
+
+| ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
+| ----------------------------------------------------------- | ----------------------------- | ------------- |
+| *?* | `srcdb_genbank[PROP]` | only the sequences whose initial upload was to GenBank |
+| *?* | `NOT refseq[FILTER]` | do not include the NCBI RefSeq set (which is already the default behaviour with ENA queries, since RefSeq is an NCBI thing) |
+| *?* | `srcdb_ddbj/embl/genbank[PROP]` | similar to the filtering by `NOT refseq[FILTER]`: original sequences |
+
+### Filtering by study
+
+In ENA, sequences are necessarily published as part of a research **study**. Therefore, it is possible to ask for all the sequences published within the framework of such a study:
 
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| *?* | `srcdb_genbank[PROP]` | ne prendre que les données initialement soumises via Genbank |
-| *?* | `NOT refseq[FILTER]` | ne pas inclure les données du jeu RefSeq (ce qui est déjà le comportement par défaut pour les requêtes ENA) |
-| *?* | `srcdb_ddbj/embl/genbank[PROP]` | un peu la même chose que de filtrer par `NOT refseq[FILTER]` : séquences originales |
+| `study_accession="PRJEB402"` | *?* | all the sequences published as part of the study with identifier PRJEB402 |
 
-### Filtrage par projet/étude
 
-Dans ENA, les séquences publiées le sont nécessairement au sein d'un **projet ou étude ("study")**. Ainsi, on peut demander à voir toutes les séquences publiées dans le cadre d'une telle étude :
+## Complex queries
+
+Above was a brief tour of the various types of atomic queries one can issue to ENA or to GenBank. As we said at the beginning of the present document, it is possible to build more complex queries by combining several atomic ones through the use of the `AND`, `OR` and `NOT` logical connectors:
 
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `study_accession="PRJEB402"` | *?* | trouver toutes les séquences issues du projet d’identifiant PRJEB402 |
-
-
-## Requêtes complexes
-
-Voilà, nous avons fait un bref tour d'horizon des requêtes dans ENA et dans GenBank. Comme nous l'avions annoncé en ouverture de ce document, on peut construire des requêtes de base en combinant les opérateurs avec des "ET" ou des "OU" logiques :
-
-| ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
-| ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `tax_name("Sus scrofa") AND organelle="mitochondrion" AND base_count > 10000 AND description="*complete*"` |  | séquences mitochondriales de porc d'au moins 10kb et contenant le mot "complete" dans leur description |
+| `tax_name("Sus scrofa") AND organelle="mitochondrion" AND base_count > 10000 AND description="*complete*"` | `"Sus scrofa"[ORGN] AND gene_in_mitochondrion[PROP] AND 10000:5000000000[SLEN] AND "complete"[TITL] NOT refseq[FILTER]` | pig mitochondrial sequences long of at least 10kb and whose description contains the word "complete" |
 
 
