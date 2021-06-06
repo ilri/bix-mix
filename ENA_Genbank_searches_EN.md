@@ -140,11 +140,20 @@ Warning! The searches formed using the `tax_eq()` predicate do not yield the seq
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
 | `tax_tree(1773)` | `zzz[orgn:__txid1773]` | sequences from *Mycobacterium tuberculosis* and all the clade whose root taxon is *M. tb* |
 
-Please note that in the GenBank query above, the token that appears just on the left of the left square bracket is meaningless. But there needs to be something there, and writing only `[orgn:__txid1773]` will not work. Please also note there are two consecutive underscore characters (`_`) in this query.
+Please note that in the GenBank query above, the token that appears just on the left of the left square bracket is meaningless. But there needs to be something there, and writing only `[orgn:__txid1773]` will not work. Please also note there are two consecutive underscore characters (`__`) in this query.
+
+### Looking for a sequence originating from a specific country.
+
+In GenBank or in EMBL files, you will see the "country" qualifier for the source feature (`/country="XXX"`). This means we can also search for sequences originating from a specific country. This is where the source organism was sampled.
+
+| ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
+| ----------------------------------------------------------- | ----------------------------- | ------------- |
+| `country="Burundi"` | *?* | records corresponding to DNA from a sample isolated in Burundi |
+
 
 ### Searching through sequence descriptions using keyowrds
 
-All INSDC sequence records contain a free text descriptive field. Appearing under the "DE" tag in a file in EMBL format, or on the line with the "DESCRIPTION" tag in a GenBank file, this is sometimes referred to as the "title" of the record. Searches based on words found within that field are performed as below.
+All INSDC sequence records contain a free text descriptive field. Appearing under the "DE" tag in a file in EMBL format, or on the line with the "DEFINITION" tag in a GenBank file, this is sometimes referred to as the "title" of the record. Searches based on words found within that field are performed as below.
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
@@ -181,7 +190,7 @@ In ENA, sequences are necessarily published as part of a research **study**. The
 
 | ENA syntax (Advanced Search)                               | GenBank syntax               | meaning |
 | ----------------------------------------------------------- | ----------------------------- | ------------- |
-| `study_accession="PRJEB402"` | *?* | all the sequences published as part of the study with identifier PRJEB402 |
+| `study_accession="PRJEB402"` | `PRJEB402[BioProject]` | all the sequences published as part of the study with identifier PRJEB402 |
 
 
 ## Complex queries
