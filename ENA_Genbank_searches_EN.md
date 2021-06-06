@@ -1,11 +1,11 @@
-# How to query the ENA and GenBank database for nucleotide sequences
+# How to query the ENA and GenBank databases for nucleotide sequences
 
 
 ## Introduction : nucleotide sequence databases
 
 Here, we explore the various keywords and the syntax to use in order to build advanced queries and find sets of **nucleotide sequences** present in the database and abiding by specific criteria.
 
-The public nucleotide sequence databases [**ENA (European Nucleotide Archive)**](https://www.ebi.ac.uk/ena/browser/home) and [**GenBank**](https://www.ncbi.nlm.nih.gov/genbank/) (the Americna database maintained by NCBI) constitute, together with the Japan-based [**DDBJ (DNA DataBank of Japan)**](https://www.ddbj.nig.ac.jp/), the [INSDC international consortium](http://www.insdc.org/) (literally: the *International Nucleotide Sequence Database Collaboration*). These three databases exchange data on a daily basis, so that their contents are synchronized and therefore identical. Thus, whichever nucleotide sequence database one interrogates, one must be able to get the same results. This being said, the way to write database queries differs from one database to another, and that is what we will examine below. As many scientists in Europe and in Africa use either ENA or GenBank, we will focus exclusively on these two databases.
+The public nucleotide sequence databases [**ENA (European Nucleotide Archive)**](https://www.ebi.ac.uk/ena/browser/home) and [**GenBank**](https://www.ncbi.nlm.nih.gov/genbank/) (the American database maintained by NCBI) constitute, together with the Japan-based [**DDBJ (DNA DataBank of Japan)**](https://www.ddbj.nig.ac.jp/), the [INSDC international consortium](http://www.insdc.org/) (literally: the *International Nucleotide Sequence Database Collaboration*). These three databases exchange data on a daily basis, so that their contents are synchronized and therefore identical. Thus, whichever nucleotide sequence database one interrogates, one must be able to get the same results. This being said, the way to write database queries differs from one database to another, and that is what we will examine below. As many scientists in Europe and in Africa use either ENA or GenBank, we will focus exclusively on these two databases.
 
 
 ## Where to browse to in order to launch queries on ENA or on GenBank?
